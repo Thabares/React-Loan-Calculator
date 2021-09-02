@@ -1,70 +1,70 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   pageHeader: {
-    fontSize: "14px",
-    fontColor: "#293a65",
-    fontWeight: "bolder",
+    fontSize: '14px',
+    fontColor: '#293a65',
+    fontWeight: 'bolder',
   },
   loanEmi: {
-    maxWidth: "95%",
-    marginRight: "auto",
-    textAlign: "center",
-    backgroundColor: "#ffe7a7",
-    borderRadius: "10px",
+    maxWidth: '95%',
+    marginRight: 'auto',
+    textAlign: 'center',
+    backgroundColor: '#ffe7a7',
+    borderRadius: '10px',
   },
   header: {
-    fontWeight: "bolder",
-    padding: "4px",
+    fontWeight: 'bolder',
+    padding: '4px',
   },
   divider: {
-    border: "2px",
-    marginBottom: "10px",
+    border: '2px',
+    marginBottom: '10px',
   },
   interestPayable: {
-    maxWidth: "95%",
-    marginLeft: "auto",
-    textAlign: "center",
-    backgroundColor: "#e2fffd",
-    borderRadius: "10px",
+    maxWidth: '95%',
+    marginLeft: 'auto',
+    textAlign: 'center',
+    backgroundColor: '#e2fffd',
+    borderRadius: '10px',
   },
   totalInterest: {
-    marginTop: "10px",
-    margin: "auto",
-    textAlign: "center",
-    backgroundColor: "#dfe7fe",
-    borderRadius: "10px",
+    marginTop: '10px',
+    margin: 'auto',
+    textAlign: 'center',
+    backgroundColor: '#dfe7fe',
+    borderRadius: '10px',
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
-    background: "#293a65",
+    background: '#293a65',
     margin: theme.spacing(3, 0, 2),
-    maxWidth: "50%",
+    maxWidth: '50%',
   },
   label: {
-    margin: "auto",
+    margin: 'auto',
   },
   inrLabel: {
-    margin: "auto",
-    paddingLeft: "10px",
+    margin: 'auto',
+    paddingLeft: '10px',
   },
 }));
 
@@ -72,18 +72,27 @@ export default function App() {
   const classes = useStyles();
 
   const [formValues, setFormValues] = useState({
-    amount: "",
-    tenure: "",
-    interestRate: "",
+    amount: '',
+    tenure: '',
+    interestRate: '',
   });
 
   const [results, setResults] = useState({
-    loanEmi: "",
-    interestPayable: "",
-    totalInterest: "",
+    loanEmi: '',
+    interestPayable: '',
+    totalInterest: '',
   });
 
   const calculateInterests = () => {
+    if (formValues.amount === '') {
+      return alert('Enter Amount');
+    }
+    if (formValues.interestRate === '') {
+      return alert('Enter Interest Rate');
+    }
+    if (formValues.tenure === '') {
+      return alert('Enter Tenure');
+    }
     let principle = formValues.amount;
     let rate = formValues.interestRate / 100 / formValues.interestRate;
     let initial = Math.pow(1 + rate, formValues.tenure);
@@ -253,7 +262,7 @@ export default function App() {
           </Grid>
         </Grid>
 
-        {results.loanEmi === "" ? (
+        {results.loanEmi === '' ? (
           <Button
             onClick={calculateInterests}
             fullWidth
@@ -267,14 +276,14 @@ export default function App() {
           <Button
             onClick={() => {
               setResults({
-                loanEmi: "",
-                interestPayable: "",
-                totalInterest: "",
+                loanEmi: '',
+                interestPayable: '',
+                totalInterest: '',
               });
               setFormValues({
-                amount: "",
-                tenure: "",
-                interestRate: "",
+                amount: '',
+                tenure: '',
+                interestRate: '',
               });
             }}
             fullWidth
@@ -285,7 +294,7 @@ export default function App() {
             Reset
           </Button>
         )}
-        {results.loanEmi !== "" ? (
+        {results.loanEmi !== '' ? (
           <Grid container>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Divider className={classes.divider} />
@@ -296,7 +305,7 @@ export default function App() {
                   <Box className={classes.loanEmi}>
                     <Typography className={classes.header}>Loan EMI</Typography>
                     <Typography className={classes.header}>
-                      {" "}
+                      {' '}
                       &#8377; {results.loanEmi}
                     </Typography>
                   </Box>
@@ -307,7 +316,7 @@ export default function App() {
                       Interest Payable
                     </Typography>
                     <Typography className={classes.header}>
-                      {" "}
+                      {' '}
                       &#8377; {results.interestPayable}
                     </Typography>
                   </Box>
@@ -315,13 +324,13 @@ export default function App() {
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                   <Box className={classes.totalInterest}>
                     <Typography className={classes.header}>
-                      Total Interest{" "}
+                      Total Interest{' '}
                       <span className={classes.subHeading}>
                         (Principle + Interest)
                       </span>
                     </Typography>
                     <Typography className={classes.header}>
-                      {" "}
+                      {' '}
                       &#8377; {results.totalInterest}
                     </Typography>
                   </Box>
